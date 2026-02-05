@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Surprise</title>
+    <title>A Special Quest for You ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -19,42 +19,69 @@
 
         #quest-card {
             background: white;
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
             text-align: center;
-            max-width: 400px;
+            max-width: 450px;
             width: 90%;
-            transition: all 0.5s ease;
+            z-index: 10;
         }
 
-        h1 { font-family: 'Pacifico', cursive; color: #ff4d6d; }
-        p { color: #555; line-height: 1.6; }
+        #quest-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 { font-family: 'Pacifico', cursive; color: #ff4d6d; margin: 10px 0; }
+        p { color: #555; font-size: 1.1rem; min-height: 60px; line-height: 1.5; }
 
         .btn-container {
-            margin-top: 20px;
+            margin-top: 25px;
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 15px;
+            min-height: 50px;
             position: relative;
         }
 
         button {
-            padding: 12px 25px;
+            padding: 12px 28px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
+            font-size: 1rem;
             font-weight: bold;
-            transition: transform 0.2s;
+            transition: transform 0.2s, background-color 0.2s;
         }
 
-        #mainBtn { background-color: #ff4d6d; color: white; }
-        #noBtn { background-color: #ddd; color: #777; position: absolute; }
+        #mainBtn { 
+            background-color: #ff4d6d; 
+            color: white; 
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); 
+            z-index: 2;
+        }
+        
+        #noBtn { 
+            background-color: #f0f0f0; 
+            color: #888; 
+            z-index: 1;
+        }
 
         .hidden { display: none !important; }
         
-        /* Floating Hearts Animation */
-        .heart { position: fixed; color: #ffb7ce; font-size: 20px; animation: float 3s linear infinite; }
+        .heart { 
+            position: fixed; 
+            color: #ffb7ce; 
+            font-size: 20px; 
+            animation: float 3s linear infinite; 
+            z-index: -1; 
+        }
+
         @keyframes float {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
@@ -64,6 +91,7 @@
 <body>
 
     <div id="quest-card">
+        <img id="quest-image" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueHpxZ3BqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" alt="Cute GIF">
         <h1 id="title">Hey! 👋</h1>
         <p id="message">I made something special for you. Are you ready to see it?</p>
         
@@ -75,29 +103,31 @@
 
     <script>
         const questData = [
-  { 
-        title: "Hey You!", 
-        message: "I have a very important quest for you...", 
-        btn: "I'm ready!",
-        img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueHpxZ3BqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif"
-    }
-    { 
-        title: "The First Step...", 
-        message: "Do you remember our first date at the Movie Theatre", 
-        btn: "I sure do!" 
-    },
-    { 
-        title: "Fun Fact...", 
-        message: "I've had a crush on you since the moment we met.", 
-        btn: "Stop, you're making me blush!" 
-    },
-    { 
-        title: "The Big Question...", 
-        message: "Will you make me the happiest person and be my Valentine?", 
-        btn: "YES!", 
-        final: true 
-    }
-
+            { 
+                title: "First of all...", 
+                message: "I just wanted to say that you're the highlight of my every day. ✨", 
+                btn: "Aww, tell me more!",
+                img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueHpxZ3BqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif"
+            },
+            { 
+                title: "And also...", 
+                message: "Life is just better when we're together. Don't you think?", 
+                btn: "I totally agree!",
+                img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbm5pZ3BqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l2R013m2u1s6PqUUS/giphy.gif"
+            },
+            { 
+                title: "One more thing...", 
+                message: "I'm so lucky to have you in my life. You're my favorite person!", 
+                btn: "Ready for the big question?",
+                img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueHpxZ3BqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKoWXm3okO1kgHC/giphy.gif"
+            },
+            { 
+                title: "The Big Ask...", 
+                message: "Will you make me the luckiest person and be my Valentine?", 
+                btn: "YES! ❤️", 
+                final: true,
+                img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzh6YXF4Z3BqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiZC/giphy.gif"
+            }
         ];
 
         let currentStep = 0;
@@ -105,6 +135,7 @@
         const messageEl = document.getElementById('message');
         const mainBtn = document.getElementById('mainBtn');
         const noBtn = document.getElementById('noBtn');
+        const imgEl = document.getElementById('quest-image');
 
         function nextStep() {
             if (currentStep < questData.length) {
@@ -112,17 +143,21 @@
                 titleEl.innerText = data.title;
                 messageEl.innerText = data.message;
                 mainBtn.innerText = data.btn;
+                imgEl.src = data.img;
 
                 if (data.final) {
                     noBtn.classList.remove('hidden');
-                    noBtn.style.position = 'relative'; // Reset for layout
+                    // Ensure it stays in layout initially
+                    noBtn.style.position = 'relative'; 
+                    noBtn.style.left = 'auto';
+                    noBtn.style.top = 'auto';
                     mainBtn.onclick = celebrate;
                 }
                 currentStep++;
             }
         }
 
-        // The "Runaway" Logic
+        // Runaway Button Logic
         noBtn.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
@@ -132,8 +167,15 @@
         });
 
         function celebrate() {
-            document.getElementById('quest-card').innerHTML = "<h1>YAY! ❤️</h1><p>I can't wait to spend it with you!</p>";
-            for(let i=0; i<50; i++) { createHeart(); }
+            imgEl.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueHpxZ3BqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/vvXG8bEiS0MubTjXG4/giphy.gif";
+            titleEl.innerText = "YAY! ❤️";
+            messageEl.innerText = "I knew you'd say yes! I can't wait!";
+            mainBtn.classList.add('hidden');
+            noBtn.classList.add('hidden');
+            // Burst of hearts
+            for(let i=0; i<50; i++) {
+                setTimeout(createHeart, i * 100);
+            }
         }
 
         function createHeart() {
@@ -143,6 +185,8 @@
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
             document.body.appendChild(heart);
+            // Clean up hearts after animation
+            setTimeout(() => heart.remove(), 5000);
         }
     </script>
 </body>
