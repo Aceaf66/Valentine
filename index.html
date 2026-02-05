@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fff5f8;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #quest-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transition: all 0.5s ease;
+        }
+
+        h1 { font-family: 'Pacifico', cursive; color: #ff4d6d; }
+        p { color: #555; line-height: 1.6; }
+
+        .btn-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        #mainBtn { background-color: #ff4d6d; color: white; }
+        #noBtn { background-color: #ddd; color: #777; position: absolute; }
+
+        .hidden { display: none !important; }
+        
+        /* Floating Hearts Animation */
+        .heart { position: fixed; color: #ffb7ce; font-size: 20px; animation: float 3s linear infinite; }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quest-card">
+        <h1 id="title">Hey! 👋</h1>
+        <p id="message">I made something special for you. Are you ready to see it?</p>
+        
+        <div class="btn-container">
+            <button id="mainBtn" onclick="nextStep()">Yes, let's go!</button>
+            <button id="noBtn" class="hidden">No</button>
+        </div>
+    </div>
+
+    <script>
+        const questData = [
+  { 
+        title: "Hey You!", 
+        message: "I have a very important quest for you...", 
+        btn: "I'm ready!",
+        img: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueHpxZ3BqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif"
+    }
+    { 
+        title: "The First Step...", 
+        message: "Do you remember our first date at the Movie Theatre", 
+        btn: "I sure do!" 
+    },
+    { 
+        title: "Fun Fact...", 
+        message: "I've had a crush on you since the moment we met.", 
+        btn: "Stop, you're making me blush!" 
+    },
+    { 
+        title: "The Big Question...", 
+        message: "Will you make me the happiest person and be my Valentine?", 
+        btn: "YES!", 
+        final: true 
+    }
+
+        ];
+
+        let currentStep = 0;
+        const titleEl = document.getElementById('title');
+        const messageEl = document.getElementById('message');
+        const mainBtn = document.getElementById('mainBtn');
+        const noBtn = document.getElementById('noBtn');
+
+        function nextStep() {
+            if (currentStep < questData.length) {
+                const data = questData[currentStep];
+                titleEl.innerText = data.title;
+                messageEl.innerText = data.message;
+                mainBtn.innerText = data.btn;
+
+                if (data.final) {
+                    noBtn.classList.remove('hidden');
+                    noBtn.style.position = 'relative'; // Reset for layout
+                    mainBtn.onclick = celebrate;
+                }
+                currentStep++;
+            }
+        }
+
+        // The "Runaway" Logic
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        });
+
+        function celebrate() {
+            document.getElementById('quest-card').innerHTML = "<h1>YAY! ❤️</h1><p>I can't wait to spend it with you!</p>";
+            for(let i=0; i<50; i++) { createHeart(); }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+        }
+    </script>
+</body>
+</html>
