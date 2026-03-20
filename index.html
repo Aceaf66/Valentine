@@ -1,193 +1,403 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Quest for You ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #fff5f8;
-            font-family: 'Quicksand', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I'm Sorry 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink-deep: #e75480;
+    --pink-mid: #f48fb1;
+    --pink-light: #fce4ec;
+    --pink-pale: #fff0f5;
+    --cream: #fff9fb;
+    --text-dark: #5c2340;
+    --text-mid: #8b4063;
+  }
 
-        #quest-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            z-index: 10;
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        #quest-image {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 20px;
-            margin-bottom: 20px;
-        }
+  body {
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: background 1s ease;
+  }
+  body.happy-bg { background: linear-gradient(135deg, #ffe0ec 0%, #ffd6e7 40%, #ffe8f0 100%); }
+  body.sad-bg   { background: linear-gradient(135deg, #b0bec5 0%, #90a4ae 40%, #78909c 100%); }
 
-        h1 { font-family: 'Pacifico', cursive; color: #ff4d6d; margin: 10px 0; }
-        p { color: #555; font-size: 1.1rem; min-height: 60px; line-height: 1.5; }
+  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .petal {
+    position: absolute; font-size: 1.2rem;
+    animation: fall linear infinite; opacity: 0.5;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(-40px) rotate(0deg); opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
 
-        .btn-container {
-            margin-top: 25px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            min-height: 50px;
-            position: relative;
-        }
+  .screen {
+    display: none; position: relative; z-index: 1;
+    width: 100%; max-width: 480px; padding: 24px 16px;
+    flex-direction: column; align-items: center;
+    animation: fadeIn 0.7s ease;
+  }
+  .screen.active { display: flex; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
-        button {
-            padding: 12px 28px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: transform 0.2s, background-color 0.2s;
-        }
+  /* === SCREEN 1 === */
+  .heart-wrap {
+    position: relative; display: flex;
+    align-items: center; justify-content: center; margin-bottom: 36px;
+  }
+  .big-heart {
+    font-size: 200px; line-height: 1;
+    filter: drop-shadow(0 8px 32px #f48fb180);
+    animation: heartbeat 1.4s ease-in-out infinite;
+  }
+  @keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    14%     { transform: scale(1.1); }
+    28%     { transform: scale(1); }
+    42%     { transform: scale(1.08); }
+    70%     { transform: scale(1); }
+  }
+  .sorry-btn {
+    position: absolute;
+    font-family: 'Dancing Script', cursive; font-size: 1.35rem; font-weight: 700;
+    color: #fff; background: linear-gradient(135deg, #e75480, #c2185b);
+    border: none; border-radius: 50px; padding: 12px 30px; cursor: pointer;
+    box-shadow: 0 6px 20px #e7548066; transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .sorry-btn:hover { transform: scale(1.08); box-shadow: 0 10px 28px #e7548099; }
+  .sorry-btn:active { transform: scale(0.96); }
+  .s1-title {
+    font-family: 'Dancing Script', cursive; font-size: 2rem;
+    color: var(--text-dark); text-align: center;
+    text-shadow: 0 2px 8px #f48fb150; margin-top: 4px;
+  }
 
-        #mainBtn { 
-            background-color: #ff4d6d; 
-            color: white; 
-            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); 
-            z-index: 2;
-        }
-        
-        #noBtn { 
-            background-color: #f0f0f0; 
-            color: #888; 
-            z-index: 1;
-        }
+  /* === SCREEN 2 === */
+  .apology-box {
+    background: #fff0f5cc; border: 2px solid #f8bbd0; border-radius: 24px;
+    padding: 28px 28px 24px; text-align: center;
+    box-shadow: 0 8px 32px #f48fb130, inset 0 1px 0 #fff8;
+    backdrop-filter: blur(8px); margin-bottom: 24px;
+  }
+  .apology-text {
+    font-family: 'Dancing Script', cursive; font-size: 1.6rem;
+    color: var(--text-dark); line-height: 1.7;
+  }
+  .apology-text .heart-emoji { font-size: 1.8rem; vertical-align: middle; }
+  .cat-img {
+    font-size: 100px; line-height: 1; margin: 4px 0 20px;
+    animation: catbob 2s ease-in-out infinite; display: block; text-align: center;
+  }
+  @keyframes catbob {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-8px); }
+  }
+  .btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .forgive-btn {
+    font-family: 'Dancing Script', cursive; font-size: 1.2rem; font-weight: 700;
+    color: #fff; background: linear-gradient(135deg, #f06292, #e75480);
+    border: none; border-radius: 50px; padding: 13px 28px; cursor: pointer;
+    box-shadow: 0 6px 20px #f0629255; transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .forgive-btn:hover { transform: scale(1.07); box-shadow: 0 10px 28px #f0629288; }
+  .no-forgive-btn {
+    font-family: 'Dancing Script', cursive; font-size: 1.2rem; font-weight: 700;
+    color: #888; background: #f0f0f0; border: 2px solid #ccc;
+    border-radius: 50px; padding: 13px 28px; cursor: pointer; transition: transform 0.15s;
+  }
+  .no-forgive-btn:hover { transform: scale(1.04); background: #e8e8e8; }
 
-        .hidden { display: none !important; }
-        
-        .heart { 
-            position: fixed; 
-            color: #ffb7ce; 
-            font-size: 20px; 
-            animation: float 3s linear infinite; 
-            z-index: -1; 
-        }
+  /* === SCREEN 3 (SAD) === */
+  .sad-box {
+    background: #cfd8dccc; border: 2px solid #90a4ae; border-radius: 24px;
+    padding: 28px 28px 24px; text-align: center;
+    box-shadow: 0 8px 32px #00000030, inset 0 1px 0 #fff4;
+    backdrop-filter: blur(8px); margin-bottom: 20px; width: 100%;
+  }
+  .sad-text {
+    font-family: 'Dancing Script', cursive; font-size: 1.55rem;
+    color: #1a2a30; line-height: 1.8;
+  }
+  .cry-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 14px; margin-bottom: 22px;
+  }
+  .cry-emoji { font-size: 80px; animation: sobbing 1s ease-in-out infinite; }
+  @keyframes sobbing {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50%     { transform: translateY(-6px) rotate(5deg); }
+  }
 
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-    </style>
+  .s3-btn-area {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 14px; width: 100%;
+  }
+  #bigForgiveBtn {
+    font-family: 'Dancing Script', cursive; font-weight: 700;
+    color: #fff; background: linear-gradient(135deg, #f06292, #e75480);
+    border: none; border-radius: 50px; cursor: pointer;
+    box-shadow: 0 6px 20px #f0629266;
+    transition: font-size 0.5s ease, padding 0.5s ease, box-shadow 0.3s;
+    font-size: 1.2rem; padding: 13px 28px;
+  }
+  #bigForgiveBtn:hover { box-shadow: 0 10px 30px #f0629299; }
+  #noForgiveBtn2 {
+    font-family: 'Dancing Script', cursive; font-size: 1rem; font-weight: 700;
+    color: #78909c; background: transparent; border: 2px solid #90a4ae;
+    border-radius: 50px; padding: 10px 24px; cursor: pointer;
+    transition: opacity 0.5s, transform 0.15s;
+  }
+  #noForgiveBtn2:hover { transform: scale(1.04); }
+
+  /* === SCREEN 4 === */
+  .thankyou-box {
+    background: #fff0f5cc; border: 2px solid #f8bbd0; border-radius: 24px;
+    padding: 32px 28px; text-align: center;
+    box-shadow: 0 8px 32px #f48fb130, inset 0 1px 0 #fff8;
+    backdrop-filter: blur(8px); margin-bottom: 24px;
+  }
+  .thankyou-text {
+    font-family: 'Dancing Script', cursive; font-size: 1.7rem;
+    color: var(--text-dark); line-height: 1.8;
+  }
+  .teary-cat-wrap {
+    margin: 16px 0 0; display: flex; justify-content: center;
+    animation: heartpop 1.8s ease-in-out infinite;
+  }
+  @keyframes heartpop {
+    0%,100% { transform: scale(1) rotate(-3deg); }
+    50%     { transform: scale(1.06) rotate(3deg); }
+  }
+  .cat-svg { width: 140px; height: 140px; overflow: visible; }
+  @keyframes tearfall {
+    0%   { transform: translateY(0) scaleY(0.6); opacity: 0; }
+    15%  { opacity: 1; } 80% { opacity: 0.8; }
+    100% { transform: translateY(38px) scaleY(1.4); opacity: 0; }
+  }
+  .tear-l { animation: tearfall 1.6s ease-in infinite; }
+  .tear-r { animation: tearfall 1.6s ease-in 0.55s infinite; }
+
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .conf { position: absolute; font-size: 1.4rem; animation: conffall linear infinite; }
+  @keyframes conffall {
+    0%   { transform: translateY(-30px) rotate(0deg); opacity:1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity:0; }
+  }
+
+  .sparkles { position: absolute; inset: 0; pointer-events: none; }
+  .sp {
+    position: absolute; font-size: 1rem;
+    animation: spfloat 2s ease-in-out infinite; opacity: 0.7;
+  }
+  @keyframes spfloat {
+    0%,100% { transform: translateY(0) scale(1); opacity:0.7; }
+    50% { transform: translateY(-14px) scale(1.3); opacity:1; }
+  }
+
+  /* Rain */
+  .raindrops { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .raindrop {
+    position: absolute; width: 2px;
+    background: linear-gradient(to bottom, transparent, #b0d0e8cc);
+    animation: rainfall linear infinite; border-radius: 2px;
+  }
+  @keyframes rainfall {
+    0%   { transform: translateY(-30px); opacity: 0.6; }
+    100% { transform: translateY(110vh); opacity: 0.15; }
+  }
+</style>
 </head>
-<body>
+<body class="happy-bg">
 
-    <div id="quest-card">
-        <img id="quest-image" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueHpxZ3BqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" alt="Cute GIF">
-        <h1 id="title">Hey! 👋</h1>
-        <p id="message">I made something special for you. Are you ready to see it?</p>
-        
-        <div class="btn-container">
-            <button id="mainBtn" onclick="nextStep()">Yes, let's go!</button>
-            <button id="noBtn" class="hidden">No</button>
-        </div>
-    </div>
+<div class="petals" id="petals"></div>
+<div class="raindrops" id="raindrops" style="display:none"></div>
 
-    <script>
-        const questData = [
-            { 
-                title: "First of all...", 
-                message: "I just wanted to say that you're the highlight of my every day. ✨", 
-                btn: "Aww, tell me more!",
-                img: "https://media.giphy.com/media/1JmGiBtqTuehfYxuy9/giphy.gif"
-            },
-            { 
-                title: "And also...", 
-                message: "Life is just better when we're together. Don't you think?", 
-                btn: "I totally agree!",
-                img: "https://media.giphy.com/media/1JmGiBtqTuehfYxuy9/giphy.gif"
-            },
-            { 
-                title: "One more thing...", 
-                message: "I'm so lucky to have you in my life. You're my favorite person!", 
-                btn: "Ready for the big question?",
-                img: "https://media.giphy.com/media/f9EmXxglhdhAj1bo28/giphy.gif"
-            },
-            { 
-                title: "The Big Ask...", 
-                message: "Will you make me the luckiest person and be my Valentine?", 
-                btn: "YES! ❤️", 
-                final: true,
-                img: "https://media.giphy.com/media/qFmdpUKAFZ6rMobzzu/giphy.gif"
-            }
-        ];
+<!-- ===== SCREEN 1 ===== -->
+<div class="screen active" id="screen1">
+  <div class="heart-wrap">
+    <div class="big-heart">❤️</div>
+    <button class="sorry-btn" onclick="goTo(2)">Sorry 🥺</button>
+    <div class="sparkles" id="sparkles1"></div>
+  </div>
+  <p class="s1-title">Tap the heart... 💕</p>
+</div>
 
-        let currentStep = 0;
-        const titleEl = document.getElementById('title');
-        const messageEl = document.getElementById('message');
-        const mainBtn = document.getElementById('mainBtn');
-        const noBtn = document.getElementById('noBtn');
-        const imgEl = document.getElementById('quest-image');
+<!-- ===== SCREEN 2 ===== -->
+<div class="screen" id="screen2">
+  <div class="apology-box">
+    <p class="apology-text">
+      I'm very sorry, Baby.<br>
+      I offer you my heart <span class="heart-emoji">💗</span><br>
+      as an apology.<br><br>
+      I hope you can forgive me......<br>
+      <em>Please.</em>
+    </p>
+  </div>
+  <span class="cat-img">😿</span>
+  <div class="btn-row">
+    <button class="forgive-btn" onclick="goTo(4)">I Forgive You 💖</button>
+    <button class="no-forgive-btn" onclick="goTo(3)">Don't Forgive 😤</button>
+  </div>
+</div>
 
-        function nextStep() {
-            if (currentStep < questData.length) {
-                const data = questData[currentStep];
-                titleEl.innerText = data.title;
-                messageEl.innerText = data.message;
-                mainBtn.innerText = data.btn;
-                imgEl.src = data.img;
+<!-- ===== SCREEN 3 (SAD PLEADING) ===== -->
+<div class="screen" id="screen3">
+  <div class="sad-box">
+    <p class="sad-text">
+      Babe, I love you. 💙<br>
+      Can you please forgive me?<br>
+      <em>Pretty Please!</em> 🥺
+    </p>
+  </div>
+  <div class="cry-row">
+    <span class="cry-emoji">😭</span>
+  </div>
+  <div class="s3-btn-area">
+    <button id="bigForgiveBtn" onclick="goTo(4)">I Forgive You 💖</button>
+    <button id="noForgiveBtn2" onclick="growBtn()">Don't Forgive 😤</button>
+  </div>
+</div>
 
-                if (data.final) {
-                    noBtn.classList.remove('hidden');
-                    // Ensure it stays in layout initially
-                    noBtn.style.position = 'relative'; 
-                    noBtn.style.left = 'auto';
-                    noBtn.style.top = 'auto';
-                    mainBtn.onclick = celebrate;
-                }
-                currentStep++;
-            }
-        }
+<!-- ===== SCREEN 4 (THANK YOU) ===== -->
+<div class="screen" id="screen4">
+  <div class="confetti" id="confetti"></div>
+  <div class="thankyou-box">
+    <p class="thankyou-text">
+      Thank you for your forgiveness. 🌸<br><br>
+      I won't hurt you ever again. 💕<br>
+      I promise. 🤞
+    </p>
+  </div>
+  <div class="teary-cat-wrap">
+    <svg class="cat-svg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="22,52 10,18 42,36" fill="#f9a8c9" stroke="#e75480" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="118,52 130,18 98,36" fill="#f9a8c9" stroke="#e75480" stroke-width="2" stroke-linejoin="round"/>
+      <polygon points="24,48 16,26 38,38" fill="#ffcce0"/>
+      <polygon points="116,48 124,26 102,38" fill="#ffcce0"/>
+      <ellipse cx="70" cy="78" rx="52" ry="48" fill="#fde8f0" stroke="#e75480" stroke-width="2.5"/>
+      <ellipse cx="40" cy="88" rx="13" ry="8" fill="#f48fb1" opacity="0.4"/>
+      <ellipse cx="100" cy="88" rx="13" ry="8" fill="#f48fb1" opacity="0.4"/>
+      <path d="M48,72 Q55,62 62,72" fill="none" stroke="#c2185b" stroke-width="3" stroke-linecap="round"/>
+      <path d="M78,72 Q85,62 92,72" fill="none" stroke="#c2185b" stroke-width="3" stroke-linecap="round"/>
+      <ellipse class="tear-l" cx="49" cy="76" rx="3.5" ry="5.5" fill="#90caf9" opacity="0.85"/>
+      <ellipse class="tear-r" cx="91" cy="76" rx="3.5" ry="5.5" fill="#90caf9" opacity="0.85"/>
+      <ellipse cx="70" cy="88" rx="5" ry="4" fill="#f06292"/>
+      <path d="M54,97 Q70,114 86,97" fill="#f9a8c9" stroke="#c2185b" stroke-width="2" stroke-linecap="round"/>
+      <path d="M62,100 Q70,107 78,100" fill="white" stroke="none"/>
+      <line x1="18" y1="85" x2="52" y2="88" stroke="#c2185b" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+      <line x1="18" y1="92" x2="52" y2="91" stroke="#c2185b" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+      <line x1="122" y1="85" x2="88" y2="88" stroke="#c2185b" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+      <line x1="122" y1="92" x2="88" y2="91" stroke="#c2185b" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+      <text x="70" y="28" font-size="18" text-anchor="middle">💗</text>
+    </svg>
+  </div>
+</div>
 
-        // Runaway Button Logic
-        noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
-        });
+<script>
+  // Petals
+  const petalEl = document.getElementById('petals');
+  ['🌸','🌺','💮','🌹','💐'].forEach((em, idx) => {
+    for (let i = 0; i < 4; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal'; p.textContent = em;
+      p.style.left = Math.random()*100 + 'vw';
+      p.style.animationDuration = (5 + Math.random()*8) + 's';
+      p.style.animationDelay = (Math.random()*8) + 's';
+      p.style.fontSize = (0.8 + Math.random()*0.8) + 'rem';
+      petalEl.appendChild(p);
+    }
+  });
 
-        function celebrate() {
-            imgEl.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueHpxZ3BqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/vvXG8bEiS0MubTjXG4/giphy.gif";
-            titleEl.innerText = "YAY! ❤️";
-            messageEl.innerText = "I knew you'd say yes! I can't wait!";
-            mainBtn.classList.add('hidden');
-            noBtn.classList.add('hidden');
-            // Burst of hearts
-            for(let i=0; i<50; i++) {
-                setTimeout(createHeart, i * 100);
-            }
-        }
+  // Sparkles
+  const sp1 = document.getElementById('sparkles1');
+  const sparks = ['✨','💫','⭐','🌟'];
+  [{top:'5%',left:'5%'},{top:'5%',right:'5%'},{bottom:'5%',left:'5%'},{bottom:'5%',right:'5%'},
+   {top:'30%',left:'-8%'},{top:'30%',right:'-8%'},{top:'-8%',left:'40%'}].forEach((pos,i) => {
+    const s = document.createElement('div');
+    s.className = 'sp'; s.textContent = sparks[i%sparks.length];
+    Object.assign(s.style, pos); s.style.animationDelay = (i*0.3)+'s';
+    sp1.appendChild(s);
+  });
 
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-            document.body.appendChild(heart);
-            // Clean up hearts after animation
-            setTimeout(() => heart.remove(), 5000);
-        }
-    </script>
+  // Rain
+  function spawnRain() {
+    const rd = document.getElementById('raindrops');
+    rd.innerHTML = ''; rd.style.display = 'block';
+    for (let i = 0; i < 65; i++) {
+      const r = document.createElement('div'); r.className = 'raindrop';
+      r.style.left = Math.random()*100+'vw';
+      r.style.height = (18+Math.random()*28)+'px';
+      r.style.animationDuration = (0.5+Math.random()*0.7)+'s';
+      r.style.animationDelay = (Math.random()*1.5)+'s';
+      rd.appendChild(r);
+    }
+  }
+
+  // Confetti
+  function spawnConfetti() {
+    const conf = document.getElementById('confetti'); conf.innerHTML = '';
+    ['💕','🌸','✨','💗','💖','🌺','💝'].forEach(em => {
+      for (let i = 0; i < 3; i++) {
+        const c = document.createElement('div'); c.className = 'conf'; c.textContent = em;
+        c.style.left = Math.random()*100+'vw';
+        c.style.animationDuration = (3+Math.random()*5)+'s';
+        c.style.animationDelay = (Math.random()*4)+'s';
+        c.style.fontSize = (0.8+Math.random()*1)+'rem';
+        conf.appendChild(c);
+      }
+    });
+  }
+
+  // Growing forgive button — 4 steps until it fills ~1/4 of screen
+  let growStep = 0;
+  const fontSizes = [1.2, 1.75, 2.4, 3.1, 3.9];
+  const paddings  = ['13px 28px','20px 48px','28px 64px','36px 76px','46px 90px'];
+
+  function growBtn() {
+    if (growStep >= 4) return;
+    growStep++;
+    const btn = document.getElementById('bigForgiveBtn');
+    btn.style.fontSize = fontSizes[growStep] + 'rem';
+    btn.style.padding  = paddings[growStep];
+    const noBtn = document.getElementById('noForgiveBtn2');
+    noBtn.style.opacity = Math.max(0, 1 - growStep * 0.28).toFixed(2);
+    if (growStep >= 4) { noBtn.style.opacity = '0'; noBtn.style.pointerEvents = 'none'; }
+  }
+
+  function goTo(n) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen'+n).classList.add('active');
+
+    if (n === 3) {
+      document.body.classList.replace('happy-bg','sad-bg');
+      petalEl.style.display = 'none';
+      spawnRain();
+      // reset grow
+      growStep = 0;
+      const btn = document.getElementById('bigForgiveBtn');
+      btn.style.fontSize = fontSizes[0]+'rem'; btn.style.padding = paddings[0];
+      const noBtn = document.getElementById('noForgiveBtn2');
+      noBtn.style.opacity = '1'; noBtn.style.pointerEvents = 'auto';
+    } else {
+      document.body.classList.remove('sad-bg');
+      document.body.classList.add('happy-bg');
+      petalEl.style.display = 'block';
+      document.getElementById('raindrops').style.display = 'none';
+    }
+    if (n === 4) spawnConfetti();
+  }
+</script>
 </body>
 </html>
